@@ -67,12 +67,12 @@ class ClientsDb:
 
     def add_phone(self, client_id: int, phone: str) -> None:
         self.connect()
-        self.cursor.execute(f"""
+        self.cursor.execute("""
             SELECT phone FROM contacts WHERE client_id=%s; 
             """, (client_id,))
         ph = self.cursor.fetchone()[0]
         if not ph:
-            self.cursor.execute(f"""
+            self.cursor.execute("""
                 UPDATE contacts SET phone=%s WHERE client_id=%s; 
                 """, (phone, client_id))
         else:
